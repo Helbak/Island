@@ -184,6 +184,7 @@ class Islands {
             return true;
         }
     }
+extendIsland(island){}; // Method for concat two object, for case when few "1" locate near each other
 
     arrayElementsToArrayObjects(arr) {
         this.setCore11(this.isCoreTrue(arr[0][0])); //create an object model, fill in the values (1 or not) to core
