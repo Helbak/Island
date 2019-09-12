@@ -169,7 +169,7 @@ class Islands {
     };
 
     addCoreToDraftMap(core) { //for the convenience of iterating elements, add them to the array
-        this.draftMap.add(core);
+        this.draftMap.push(core);
     };
 
     setAmountPlusOne() {
@@ -212,5 +212,6 @@ class Islands {
             }
         }
         return this.amountOfIslands;
+
     }
 }
