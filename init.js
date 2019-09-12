@@ -98,37 +98,38 @@ class Islands {
             ]
         };
         this.draftMap = [];
+        this.arrayOfIslands = [];
     };
 
     setCore11(el11) { //at the same time as changing the value of the core, we change the values of links to this core
-        this.core11.row = el11;
+        this.core11.core = el11;
         this.core21.links[11] = el11;
         this.core12.links[11] = el11;
     };
 
     setCore12(el12) {
-        this.core12.row = el12;
+        this.core12.core = el12;
         this.core21.links[12] = el12;
         this.core11.links[12] = el12;
         this.core22.links[12] = el12;
     };
 
     setCore13(el13) {
-        this.core13.row = el13;
+        this.core13.core = el13;
         this.core12.links[13] = el13;
         this.core23.links[13] = el13;
         this.core22.links[13] = el13;
     };
 
     setCore21(el21) {
-        this.core21.row = el21;
+        this.core21.core = el21;
         this.core11.links[21] = el21;
         this.core22.links[21] = el21;
         this.core31.links[21] = el21;
     };
 
     setCore22(el22) {
-        this.core22.row = el22;
+        this.core22.core = el22;
         this.core12.links[22] = el22;
         this.core32.links[22] = el22;
         this.core21.links[22] = el22;
@@ -136,27 +137,27 @@ class Islands {
     };
 
     setCore23(el23) {
-        this.core23.row = el23;
+        this.core23.core = el23;
         this.core13.links[23] = el23;
         this.core22.links[23] = el23;
         this.core33.links[23] = el23;
     };
 
     setCore31(el31) {
-        this.core31.row = el31;
+        this.core31.core = el31;
         this.core32.links[31] = el31;
         this.core21.links[31] = el31;
     };
 
     setCore32(el32) {
-        this.core32.row = el32;
+        this.core32.core = el32;
         this.core31.links[32] = el32;
         this.core33.links[32] = el32;
         this.core23.links[32] = el32;
     };
 
     setCore33(el33) {
-        this.core33.row = el33;
+        this.core33.core = el33;
         this.core32.links[33] = el33;
         this.core23.links[33] = el33;
     };
@@ -172,19 +173,48 @@ class Islands {
         this.draftMap.push(core);
     };
 
+    addIslandToArray(core) { //for the convenience of iterating elements, add them to the array
+        this.arrayOfIslands.push(core);
+    };
+
     setAmountPlusOne() {
         this.amountOfIslands++;
     };//iterator of islands number
 
-    isAllLinksFalse(core) { //check if the cell is separate
+    setAmountMinusOne(count) {
+        console.log('count = '+count)
+        if (this.amountOfIslands <= count) {
+            this.amountOfIslands = 1;
+            console.log('this.amountOfIslands <= count  '+this.amountOfIslands)
+            return;
+        }
+        this.amountOfIslands = this.amountOfIslands - count;
+        console.log('this.amountOfIslands  '+this.amountOfIslands)
+    };
+
+    isAllLinksFalse(core) { //check if the core is separate
         for (let i = 0; i < core.links.length; i++) {
             if (core.links[i][1] === true) {
-                return false;
+                console.log('return true;')
+                return true;
             }
-            return true;
+            console.log('return false;')
+            return false;
         }
     }
-extendIsland(island){}; // Method for concat two object, for case when few "1" locate near each other
+
+    howMatchLinksTrue(island) {
+        let count = 0;
+        for (let i = 0; i < island.links.length; i++) {
+            if (island.links[i] === true) {
+                count++;
+            }
+        }
+        return count;
+    };
+
+    extendIsland(island) {
+    }; // Method for concat two object, for case when few "1" locate near each other
 
     arrayElementsToArrayObjects(arr) {
         this.setCore11(this.isCoreTrue(arr[0][0])); //create an object model, fill in the values (1 or not) to core
@@ -208,10 +238,18 @@ extendIsland(island){}; // Method for concat two object, for case when few "1" l
         this.addCoreToDraftMap(this.core33);
 
         for (let i = 0; i < this.draftMap.length; i++) {
-            if (this.draftMap[i].core === true || this.isAllLinksFalse(this.draftMap[i]) === true) {
+            console.log(i + '  ' + this.draftMap[i].core);
+            if (this.draftMap[i].core === true) {
                 this.setAmountPlusOne();
+                this.addIslandToArray(this.draftMap[i]);
             }
         }
+        // for (let i = 0; i < this.arrayOfIslands.length; i++) {
+        //     const count = this.howMatchLinksTrue(this.arrayOfIslands[i]);
+        //     this.setAmountMinusOne(count);
+        // }unconnected islands are calculated correctly. There is  the problem of reducing
+        // the number of islands that are combined into one
+
         return this.amountOfIslands;
 
     }

@@ -14,7 +14,7 @@ describe("Islands", () => {
             ]
         };
         const act = i.isAllLinksFalse(core);
-        const exp = true;
+        const exp = false;
         assert.equal(act, exp);
     });
     it('isAllLinksFalse when all links is false', function () {
@@ -30,7 +30,7 @@ describe("Islands", () => {
             ]
         };
         const act = i.isAllLinksFalse(core);
-        const exp = true;
+        const exp = false;
         assert.equal(act, exp);
     });
     it('isAllLinksFalse when one links is true', function () {
@@ -40,9 +40,9 @@ describe("Islands", () => {
             num: 12,
             core: null,
             links: [
-                [11, null],
-                [13, null],
-                [22, null]
+                [11, true],
+                [13, false],
+                [22, false]
             ]
         };
         const act = i.isAllLinksFalse(core);
@@ -61,92 +61,110 @@ describe("Islands", () => {
     });
 
     it('setCore11(true)', function () {
-        const act = i.setCore11(true)
+        i.setCore11(true);
+        const act = true;
         const exp = i.core11.core;
         assert.equal(act, exp);
     });
     it('setCore11(false)', function () {
-        const act = i.setCore11(false)
+        i.setCore11(false);
+        const act = false;
         const exp = i.core11.core;
         assert.equal(act, exp);
     });
     it('setCore12(true)', function () {
-        const act = i.setCore11(true)
+        i.setCore12(true);
+        const act = true;
         const exp = i.core12.core;
         assert.equal(act, exp);
     });
     it('setCore12(false)', function () {
-        const act = i.setCore12(false)
+        i.setCore12(false);
+        const act = false;
         const exp = i.core12.core;
         assert.equal(act, exp);
     });
     it('setCore13(true)', function () {
-        const act = i.setCore13(true)
+        i.setCore13(true);
+        const act = true;
         const exp = i.core13.core;
         assert.equal(act, exp);
     });
     it('setCore13(false)', function () {
-        const act = i.setCore13(false)
+        i.setCore13(false);
+        const act = false;
         const exp = i.core13.core;
         assert.equal(act, exp);
     });
     it('setCore21(true)', function () {
-        const act = i.setCore21(true)
+        i.setCore21(true);
+        const act = true;
         const exp = i.core21.core;
         assert.equal(act, exp);
     });
     it('setCore21(false)', function () {
-        const act = i.setCore21(false)
+        i.setCore21(false);
+        const act = false;
         const exp = i.core21.core;
         assert.equal(act, exp);
     });
     it('setCore22(true)', function () {
-        const act = i.setCore22(true)
+        i.setCore22(true);
+        const act = true;
         const exp = i.core22.core;
         assert.equal(act, exp);
     });
     it('setCore22(false)', function () {
-        const act = i.setCore22(false)
+        i.setCore22(false);
+        const act = false;
         const exp = i.core22.core;
         assert.equal(act, exp);
     });
     it('setCore23(true)', function () {
-        const act = i.setCore23(true)
+        i.setCore23(true);
+        const act = true;
         const exp = i.core23.core;
         assert.equal(act, exp);
     });
     it('setCore23(false)', function () {
-        const act = i.setCore23(false)
+        i.setCore23(false);
+        const act = false;
         const exp = i.core23.core;
         assert.equal(act, exp);
     });
     it('setCore31(true)', function () {
-        const act = i.setCore31(true)
+        i.setCore31(true);
+        const act = true;
         const exp = i.core31.core;
         assert.equal(act, exp);
     });
     it('setCore31(false)', function () {
-        const act = i.setCore31(false)
+        i.setCore31(false);
+        const act = false;
         const exp = i.core31.core;
         assert.equal(act, exp);
     });
     it('setCore32(true)', function () {
-        const act = i.setCore32(true)
+        i.setCore32(true);
+        const act = true;
         const exp = i.core32.core;
         assert.equal(act, exp);
     });
     it('setCore32(false)', function () {
-        const act = i.setCore32(false)
+        i.setCore32(false);
+        const act = false;
         const exp = i.core32.core;
         assert.equal(act, exp);
     });
     it('setCore33(true)', function () {
-        const act = i.setCore33(true)
+        i.setCore33(true);
+        const act = true;
         const exp = i.core33.core;
         assert.equal(act, exp);
     });
     it('setCore33(false)', function () {
-        const act = i.setCore33(false)
+        i.setCore33(false)
+        const act = false;
         const exp = i.core33.core;
         assert.equal(act, exp);
     });
@@ -157,14 +175,55 @@ describe("Islands", () => {
         const exp = test2.draftMap[0];
         assert.equal(act, exp);
     });
-    it('arrayElementsToArrayObjects(arr)', function () {
+    it('arrayElementsToArrayObjects([[0,0,0],[0,0,0],[0,0,0]])', function () {
         const test = new Islands();
-        arr = [[0,0,0],[0,0,0],[0,0,0]];
+        const arr = [[0,0,0],[0,0,0],[0,0,0]];
         const act = test.arrayElementsToArrayObjects(arr);
         const exp = 0;
         assert.equal(act, exp);
     });
-
+    it('arrayElementsToArrayObjects([[1,0,0],[0,0,0],[0,0,0]])', function () {
+        const test1 = new Islands();
+        const arr = [[1,0,0],[0,0,0],[0,0,0]];
+        const act = test1.arrayElementsToArrayObjects(arr);
+        const exp = 1;
+        assert.equal(act, exp);
+    });
+    it('arrayElementsToArrayObjects([[1,0,1],[0,0,0],[0,0,0]])', function () {
+        const test1 = new Islands();
+        const arr = [[1,0,1],[0,0,0],[0,0,0]];
+        const act = test1.arrayElementsToArrayObjects(arr);
+        const exp = 2;
+        assert.equal(act, exp);
+    });
+    it('arrayElementsToArrayObjects([[1,0,1],[0,1,0],[0,0,0]])', function () {
+        const test1 = new Islands();
+        const arr = [[1,0,1],[0,1,0],[0,0,0]];
+        const act = test1.arrayElementsToArrayObjects(arr);
+        const exp = 3;
+        assert.equal(act, exp);
+    });
+    it('arrayElementsToArrayObjects([[1,0,1],[0,1,0],[1,0,0]])', function () {
+        const test1 = new Islands();
+        const arr = [[1,0,1],[0,1,0],[1,0,0]];
+        const act = test1.arrayElementsToArrayObjects(arr);
+        const exp = 4;
+        assert.equal(act, exp);
+    });
+    it('arrayElementsToArrayObjects([[1,0,1],[0,1,0],[1,0,1]])', function () {
+        const test1 = new Islands();
+        const arr = [[1,0,1],[0,1,0],[1,0,1]];
+        const act = test1.arrayElementsToArrayObjects(arr);
+        const exp = 5;
+        assert.equal(act, exp);
+    });
+    it('arrayElementsToArrayObjects([[1,0,1],[0,1,0],[1,1,1]])', function () {
+        const test1 = new Islands();
+        const arr = [[1,0,1],[0,1,0],[1,1,1]];
+        const act = test1.arrayElementsToArrayObjects(arr);
+        const exp = 3;
+        assert.equal(act, exp);
+    });
 
     });
 
