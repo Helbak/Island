@@ -1,6 +1,48 @@
-
 const i = new Islands();
 describe("Islands", () => {
+    it('calculateOfNull when arr = [[0,1,1],[1,1,1],[1,1,1]]', function () {
+        const arr = [[0, 1, 1], [1, 1, 1], [1, 1, 1]];
+        const act = i.calculateOfNull(arr);
+        const exp = 1;
+        assert.equal(act, exp);
+    });
+    it('calculateOfNull when arr = [[1,1,1],[1,1,1],[1,1,0]]', function () {
+        const arr = [[1, 1, 1], [1, 1, 1], [1, 1, 0]];
+        const act = i.calculateOfNull(arr);
+        const exp = 1;
+        assert.equal(act, exp);
+    });
+    it('calculateOfNull when arr = [[1,1,1],[1,1,1],[1,1,0]]', function () {
+        const arr = [[1, 1, 1], [1, 1, 1], [1, 1, 1]];
+        const act = i.calculateOfNull(arr);
+        const exp = 0;
+        assert.equal(act, exp);
+    });
+    it('calculateOfNull when arr = [[1,1,1],[1,1,1],[1,1,0]]', function () {
+        const arr = [[1, 1, 1], [0, 0, 0], [1, 1, 1]];
+        const act = i.calculateOfNull(arr);
+        const exp = 3;
+        assert.equal(act, exp);
+    });
+    it('calculateOfOnes when arr = [[1,1,1],[1,1,1],[1,1,0]]', function () {
+        const arr = [[1, 1, 1], [1, 1, 1], [1, 1, 1]];
+        const act = i.calculateOfOnes(arr);
+        const exp = 9;
+        assert.equal(act, exp);
+    });
+    it('calculateOfOnes when arr = [[1,1,1],[1,1,1],[1,1,0]]', function () {
+        const arr = [[0, 0, 0], [0, 0, 0], [0, 0, 1]];
+        const act = i.calculateOfOnes(arr);
+        const exp = 1;
+        assert.equal(act, exp);
+    });
+    it('calculateOfOnes when arr = [[1,1,1],[1,1,1],[1,1,0]]', function () {
+        const arr = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+        const act = i.calculateOfOnes(arr);
+        const exp = 0;
+        assert.equal(act, exp);
+    });
+
     it('isAllLinksFalse when all links is null', function () {
         const core = {
             row: 1,
@@ -49,6 +91,64 @@ describe("Islands", () => {
         const exp = true;
         assert.equal(act, exp);
     });
+    it('searchCoreWithOnes true', function () {
+        const arr = [
+            {
+                core: true,
+                name: 'test'
+            },
+            {
+                core: 5,
+                name: 'test'
+            },
+            {
+                core: false,
+                count: 5
+            }
+        ];
+        const act = i.searchCoreWithOnes(arr)
+        const exp = true;
+        assert.equal(act, exp);
+    });
+    it('searchCoreWithOnes true', function () {
+        const arr = [
+            {
+                core: true,
+                name: 'test'
+            },
+            {
+                core: true,
+                name: 'test'
+            },
+            {
+                core: false,
+                count: 5
+            }
+        ];
+        const act = i.searchCoreWithOnes(arr)
+        const exp = true;
+        assert.equal(act, exp);
+    });
+    it('searchCoreWithOnes false', function () {
+        const arr = [
+            {
+                core: "true",
+                name: 'test'
+            },
+            {
+                core: 5,
+                name: 'test'
+            },
+            {
+                core: false,
+                count: 5
+            }
+        ];
+        const act = i.searchCoreWithOnes(arr)
+        const exp = false;
+        assert.equal(act, exp);
+    });
+
     it('isCoreTrue(0)', function () {
         const act = i.isCoreTrue(0)
         const exp = false;
@@ -169,7 +269,7 @@ describe("Islands", () => {
         assert.equal(act, exp);
     });
     it('addCoreToDraftMap(\'test\')', function () {
-       const test2 = new Islands();
+        const test2 = new Islands();
         test2.addCoreToDraftMap('test');
         const act = 'test';
         const exp = test2.draftMap[0];
@@ -177,53 +277,25 @@ describe("Islands", () => {
     });
     it('arrayElementsToArrayObjects([[0,0,0],[0,0,0],[0,0,0]])', function () {
         const test = new Islands();
-        const arr = [[0,0,0],[0,0,0],[0,0,0]];
+        const arr = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
         const act = test.arrayElementsToArrayObjects(arr);
         const exp = 0;
         assert.equal(act, exp);
     });
     it('arrayElementsToArrayObjects([[1,0,0],[0,0,0],[0,0,0]])', function () {
         const test1 = new Islands();
-        const arr = [[1,0,0],[0,0,0],[0,0,0]];
+        const arr = [[1, 0, 0], [0, 0, 0], [0, 0, 0]];
         const act = test1.arrayElementsToArrayObjects(arr);
         const exp = 1;
         assert.equal(act, exp);
     });
     it('arrayElementsToArrayObjects([[1,0,1],[0,0,0],[0,0,0]])', function () {
         const test1 = new Islands();
-        const arr = [[1,0,1],[0,0,0],[0,0,0]];
+        const arr = [[1, 0, 1], [0, 0, 0], [0, 0, 0]];
         const act = test1.arrayElementsToArrayObjects(arr);
         const exp = 2;
         assert.equal(act, exp);
     });
-    it('arrayElementsToArrayObjects([[1,0,1],[0,1,0],[0,0,0]])', function () {
-        const test1 = new Islands();
-        const arr = [[1,0,1],[0,1,0],[0,0,0]];
-        const act = test1.arrayElementsToArrayObjects(arr);
-        const exp = 3;
-        assert.equal(act, exp);
-    });
-    it('arrayElementsToArrayObjects([[1,0,1],[0,1,0],[1,0,0]])', function () {
-        const test1 = new Islands();
-        const arr = [[1,0,1],[0,1,0],[1,0,0]];
-        const act = test1.arrayElementsToArrayObjects(arr);
-        const exp = 4;
-        assert.equal(act, exp);
-    });
-    it('arrayElementsToArrayObjects([[1,0,1],[0,1,0],[1,0,1]])', function () {
-        const test1 = new Islands();
-        const arr = [[1,0,1],[0,1,0],[1,0,1]];
-        const act = test1.arrayElementsToArrayObjects(arr);
-        const exp = 5;
-        assert.equal(act, exp);
-    });
-    it('arrayElementsToArrayObjects([[1,0,1],[0,1,0],[1,1,1]])', function () {
-        const test1 = new Islands();
-        const arr = [[1,0,1],[0,1,0],[1,1,1]];
-        const act = test1.arrayElementsToArrayObjects(arr);
-        const exp = 3;
-        assert.equal(act, exp);
-    });
 
-    });
+});
 

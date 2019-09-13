@@ -182,41 +182,77 @@ class Islands {
     };//iterator of islands number
 
     setAmountMinusOne(count) {
-        console.log('count = '+count)
+        console.log('count = ' + count)
         if (this.amountOfIslands <= count) {
             this.amountOfIslands = 1;
-            console.log('this.amountOfIslands <= count  '+this.amountOfIslands)
+            console.log('this.amountOfIslands <= count  ' + this.amountOfIslands)
             return;
         }
         this.amountOfIslands = this.amountOfIslands - count;
-        console.log('this.amountOfIslands  '+this.amountOfIslands)
+        console.log('this.amountOfIslands  ' + this.amountOfIslands)
     };
+
+    calculateOfNull(arr) {
+        let countOfNull = 0;
+        for (let i = 0; i < arr.length; i++) {
+            for (let j = 0; j < arr.length; j++) {
+                if (arr[i][j] !== 1) {
+                    countOfNull++;
+                }
+            }
+        }
+        return countOfNull;
+    }
+
+    calculateOfOnes(arr) {
+        let countOfOnes = 0;
+        for (let i = 0; i < arr.length; i++) {
+            for (let j = 0; j < arr.length; j++) {
+                if (arr[i][j] === 1) {
+                    countOfOnes++;
+                }
+            }
+        }
+        return countOfOnes;
+    }
 
     isAllLinksFalse(core) { //check if the core is separate
         for (let i = 0; i < core.links.length; i++) {
             if (core.links[i][1] === true) {
-                console.log('return true;')
                 return true;
             }
-            console.log('return false;')
             return false;
         }
-    }
-
-    howMatchLinksTrue(island) {
-        let count = 0;
-        for (let i = 0; i < island.links.length; i++) {
-            if (island.links[i] === true) {
-                count++;
-            }
-        }
-        return count;
     };
 
-    extendIsland(island) {
-    }; // Method for concat two object, for case when few "1" locate near each other
+    searchCoreWithOnes(arr) {
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].core === true) {
+                return arr[i].core;
+            }
+            return false;
+        }
+        ;
+    }
 
     arrayElementsToArrayObjects(arr) {
+
+        const amountOfNull = this.calculateOfNull(arr);
+        const amountOfOnes = this.calculateOfOnes(arr);
+        if (amountOfOnes === 0) {
+            return 0;
+        }
+        ;
+        if (amountOfOnes === 1) {
+            return 1;
+        }
+        ;
+
+        if (amountOfNull <= 2) {
+            return 1;
+        }
+        ;
+
         this.setCore11(this.isCoreTrue(arr[0][0])); //create an object model, fill in the values (1 or not) to core
         this.setCore12(this.isCoreTrue(arr[0][1]));
         this.setCore13(this.isCoreTrue(arr[0][2]));
@@ -237,18 +273,28 @@ class Islands {
         this.addCoreToDraftMap(this.core32);
         this.addCoreToDraftMap(this.core33);
 
-        for (let i = 0; i < this.draftMap.length; i++) {
-            console.log(i + '  ' + this.draftMap[i].core);
-            if (this.draftMap[i].core === true) {
-                this.setAmountPlusOne();
-                this.addIslandToArray(this.draftMap[i]);
+        if (amountOfOnes === 2) {
+            const core = this.searchCoreWithOnes(this.draftMap);
+            console.log(' this.draftMap[9].core  ==  '+ this.draftMap[9].core )
+            if (this.isAllLinksFalse(core)===true){
+                console.log('   isAllLinksFalse return true;')
+    return 1;
             }
-        }
-        // for (let i = 0; i < this.arrayOfIslands.length; i++) {
-        //     const count = this.howMatchLinksTrue(this.arrayOfIslands[i]);
-        //     this.setAmountMinusOne(count);
-        // }unconnected islands are calculated correctly. There is  the problem of reducing
-        // the number of islands that are combined into one
+            console.log('   isAllLinksFalse return false')
+            return 2;
+        };
+
+
+
+        // for (let i = 0; i < this.draftMap.length; i++) {
+        //     console.log(i + '  ' + this.draftMap[i].core);
+        //     if (this.draftMap[i].core === true) {
+        //         const island = this.createIsland(this.draftMap[i]);
+        //         this.setAmountPlusOne();
+        //         this.addIslandToArray(island);
+        //     }
+        // }
+
 
         return this.amountOfIslands;
 
